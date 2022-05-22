@@ -6,45 +6,46 @@ import { toast } from 'react-toastify';
 
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
     const [user] = useAuthState(auth);
-    const { name, slots, _id } = treatment;
+    const { name, slots, _id, price } = treatment;
     const formattedDate = format(date, "PP");
     const handleBooking = event => {
         event.preventDefault();
         const slot = event.target.slot.value;
         console.log(_id, name, slot)
-        
+
         const booking = {
             treatmentId: _id,
             treatment: name,
             date: formattedDate,
             slot,
+            price,
             patient: user.email,
             patientName: user.displayName,
             phone: event.target.phone.value
         }
-        
-        fetch('http://localhost:5000/booking', {
+
+        fetch('https://doctor-project-server.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(booking)
         })
-        .then(res => res.json())
-        .then(data => {
-            // close the modal
-            console.log(data)
-            if(data.success){
-                toast(`Appointment is successfully, ${formattedDate} at ${slot}`)
-            }
-            else {
-                toast.error(`Already Have an Appointment on, ${data.booking?.date} at ${data.booking?.slot}`)
-            }
-            refetch();
-            setTreatment(null)
-        })
-        
-        
+            .then(res => res.json())
+            .then(data => {
+                // close the modal
+                console.log(data)
+                if (data.success) {
+                    toast(`Appointment is successfully, ${formattedDate} at ${slot}`)
+                }
+                else {
+                    toast.error(`Already Have an Appointment on, ${data.booking?.date} at ${data.booking?.slot}`)
+                }
+                refetch();
+                setTreatment(null)
+            })
+
+
     }
     return (
         <div>

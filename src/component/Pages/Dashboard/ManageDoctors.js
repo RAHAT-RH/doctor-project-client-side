@@ -6,7 +6,7 @@ import DeleteConfirmModal from './DeleteConfirmModal'
 
 const ManageDoctors = () => {
     const [deletingDoctor, setDeletingDoctor] = useState(null)
-    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('http://localhost:5000/doctors', {
+    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('https://doctor-project-server.herokuapp.com/doctors', {
         method: "GET",
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -33,20 +33,20 @@ const ManageDoctors = () => {
                     <tbody>
                         {
                             doctors.map((doctor, index) => <DoctorRow
-                            key={doctor._id}
-                            index={index}
-                            doctor={doctor}
-                            refetch = {refetch}
-                            setDeletingDoctor={setDeletingDoctor}
+                                key={doctor._id}
+                                index={index}
+                                doctor={doctor}
+                                refetch={refetch}
+                                setDeletingDoctor={setDeletingDoctor}
                             ></DoctorRow>)
                         }
                     </tbody>
                 </table>
             </div>
             {deletingDoctor && <DeleteConfirmModal
-            deletingDoctor={deletingDoctor}
-            refetch={refetch}
-            setDeletingDoctor={setDeletingDoctor}
+                deletingDoctor={deletingDoctor}
+                refetch={refetch}
+                setDeletingDoctor={setDeletingDoctor}
             ></DeleteConfirmModal>}
         </div>
     );
