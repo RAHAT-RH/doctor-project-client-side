@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../../../hooks/useToken';
+import { toast } from 'react-toastify';
 const SignUp = () => {
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -43,6 +44,7 @@ const SignUp = () => {
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
         console.log('update done');
+        toast.success('Account Create Successfully')
         // navigate('/appointment')
     }
     return (

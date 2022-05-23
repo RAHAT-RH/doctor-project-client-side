@@ -3,6 +3,7 @@ import auth from '../../../firebase.init'
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
+import { toast } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useToken from '../../../hooks/useToken';
 const Login = () => {
@@ -41,6 +42,7 @@ const Login = () => {
     const onSubmit = data => {
         console.log(data);
         signInWithEmailAndPassword(data.email, data.password)
+        toast.success('Login SuccessFully')
     }
 
 
@@ -106,7 +108,9 @@ const Login = () => {
                     </form>
                     <p className='text-center'><small>New to Doctors Portal <Link className='text-primary' to='/signup'>Create a New Account</Link></small></p>
                     <div className="divider">OR</div>
-                    <button onClick={() => signInWithGoogle()} className="btn btn-outline">Continue With Google</button>
+                    <button onClick={
+                        () => signInWithGoogle()
+                        } className="btn btn-outline">Continue With Google</button>
                 </div>
             </div>
         </div>

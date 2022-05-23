@@ -119,7 +119,7 @@ const CheckoutForm = ({ appointment }) => {
                         },
                     }}
                 />
-                <button className='btn btn-success btn-sm mt-4' type="submit" disabled={!stripe || !clientSecret}>
+                <button className='mt-4 btn btn-success btn-sm' type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </form>
@@ -129,7 +129,7 @@ const CheckoutForm = ({ appointment }) => {
             {
                 success && <div className='text-green-500'>
                     <p>{success}</p>
-                    <p>Your transaction Id: <sapn className='text-orange-500 font-bold'>{transactionId}</sapn></p>
+                    <p>Your transaction Id: <span className='font-bold text-orange-500'>{transactionId}</span></p>
                 </div>
             }
         </>
